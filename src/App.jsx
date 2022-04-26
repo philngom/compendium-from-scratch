@@ -1,17 +1,22 @@
-import { Link, Route, Switch } from 'react-router-dom';
+import { Link, Route, Switch, BrowserRouter as Router } from 'react-router-dom';
+import CharactersList from './views/CharactersList/CharactersList';
+import Character from './views/Character/Character';
 
 export default function App() {
   return (
+    <Router>
     <Switch>
       <Route path="/characters/:id">
-        <CharacterDetail />
+        <Character />
       </Route>
       <Route path="/characters">
         <CharactersList />
       </Route>
-      <Route path="/">
-        <Link to="/characters">View Marvel Characters<Link />
+      <Route exact path="/">
+        <h1>Home Page</h1>
+        <Link to="/characters">View Marvel Characters</Link>
       </Route>
     </Switch>
+    </Router>
   );
 }
