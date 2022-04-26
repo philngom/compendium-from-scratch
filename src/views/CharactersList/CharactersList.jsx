@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import md5 from 'md5';
 
 export default function CharactersList() {
@@ -7,14 +8,12 @@ export default function CharactersList() {
 
   useEffect(() => {
     const fetchCharacters = async () => {
-      // const hash = md5(process.env.)
       const ts = Date.now();
       const hash = md5(ts + process.env.PRIVATE_KEY + process.env.PUBLIC_KEY);
 
       const response = await fetch(`https://gateway.marvel.com/v1/public/characters?ts=${ts}&apikey=${process.env.PUBLIC_KEY}&hash=${hash}&limit=99`);
 
       const data = await response.json();
-      console.log("🚀 ~ file: CharactersList.jsx ~ line 16 ~ fetchCharacters ~ data", data)
 
       const characterData = data.data.results.map((character) => {
         return {
@@ -23,7 +22,6 @@ export default function CharactersList() {
           img: character.thumbnail.path + '.' + character.thumbnail.extension
         }
       })
-      console.log("🚀 ~ file: CharactersList.jsx ~ line 25 ~ characterData ~ characterData", characterData)
 
       setCharacters(characterData);
       setIsLoading(false);
@@ -34,6 +32,7 @@ export default function CharactersList() {
   return (
     <>
     <h1>List Of Marvel Characters</h1>
+    <Link to='/'>Back to homepage</Link>
     {isLoading ? (
       <p>Loading...</p>
     ) : (
