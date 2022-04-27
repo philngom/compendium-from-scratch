@@ -5,7 +5,6 @@ import { MemoryRouter } from 'react-router-dom';
 
 describe('CharacterList', () => {
   it('should render a filterable list (99 items) to the screen', async () => {
-    // jest.setTimeout(10000);
     render(
       <MemoryRouter>
         <CharactersList />
@@ -14,17 +13,19 @@ describe('CharacterList', () => {
 
     screen.getByText(/loading/i);
 
-    await screen.findByText(/Aaron Stack/i);
-
-      // return waitFor(() => {
-      //   const list = screen.getAllByRole('listitem');
-      //   console.log(list);
-      // })
-
-    // const list = await screen.getAllByRole('listitem');
+    await screen.findByText(/Aaron Stack/i, undefined, {
+      timeout: 5000
+    });
 
 
+    const list = screen.getAllByRole('listitem');
+    expect(list).toHaveLength(99);
 
+    const character = screen.getByRole('link', { name: /aaron stack/i});
+    screen.debug(character);
 
+    userEvent.click(character);
+
+    screen.getByRole('heading', { level: 1, name: /aaron stack/i})
   })
 })

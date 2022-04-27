@@ -4,14 +4,19 @@ import md5 from 'md5';
 
 export default function CharactersList() {
   const [characters, setCharacters] = useState([]);
+  const [results, setResults] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [search, setSearch] = useState('');
+
+  const isSearching = !!search.length;
+  const characterList = isSearching ? results : characters;
 
   useEffect(() => {
     const fetchCharacters = async () => {
       const ts = Date.now();
       const hash = md5(ts + process.env.PRIVATE_KEY + process.env.PUBLIC_KEY);
 
-      const response = await fetch(`https://gateway.marvel.com/v1/public/characters?ts=${ts}&apikey=${process.env.PUBLIC_KEY}&hash=${hash}&limit=25`);
+      const response = await fetch(`https://gateway.marvel.com/v1/public/characters?ts=${ts}&apikey=${process.env.PUBLIC_KEY}&hash=${hash}&limit=99`);
 
       const data = await response.json();
 
@@ -29,6 +34,15 @@ export default function CharactersList() {
     fetchCharacters();
   }, [])
 
+  const handleSearch = (e) => {
+    console.log(e.target.value);
+    setSearch(e.target.value);
+    const filteredCharacters = characters.filter((character) => {
+      return character.name.toLowerCase().includes(event.target.value.toLowerCase());
+    });
+    setResults(filteredCharacters);
+  }
+
   return (
     <>
     <h1>List Of Marvel Characters</h1>
@@ -37,9 +51,15 @@ export default function CharactersList() {
     isLoading ? (
       <p>Loading...</p>
     ) : (
+      <>
+      <input
+        placeholder="Find a character"
+        value={search}
+        onChange={handleSearch}
+      />
     <ul>
     {
-      characters.map((character) => {
+      characterList.map((character) => {
         return (
           <div key={character.id}>
               <Link to={`/character/${character.id}`}>
@@ -52,6 +72,7 @@ export default function CharactersList() {
       })
     }
     </ul>
+    </>
     )
   }
     </>
