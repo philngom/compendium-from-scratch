@@ -16,3 +16,5 @@ jobs:
     - run: npm test
       env:
         CI: true
+        PUBLIC_KEY: ${{ secrets.PUBLIC_KEY }}
+        PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
