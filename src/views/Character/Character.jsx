@@ -11,7 +11,7 @@ export default function Character() {
 
   useEffect(() => {
     const fetchCharacter = async () => {
-      console.log('yo');
+      console.log(id);
       const ts = Date.now();
       const hash = md5(ts + process.env.PRIVATE_KEY + process.env.PUBLIC_KEY);
       const response = await fetch(`https://gateway.marvel.com/v1/public/characters/${id}?ts=${ts}&apikey=${process.env.PUBLIC_KEY}&hash=${hash}`);
@@ -23,12 +23,10 @@ export default function Character() {
         name: data.data.results[0].name,
         img: data.data.results[0].thumbnail.path + '.' + data.data.results[0].thumbnail.extension
       }
-      console.log("🚀 ~ file: Character.jsx ~ line 26 ~ fetchCharacter ~ character", character)
 
 
       setCharacter(character);
       setIsLoading(false);
-      console.log("🚀 ~ file: Character.jsx ~ line 18 ~ fetchCharacter ~ data", data.data.results);
 
     }
     fetchCharacter();
