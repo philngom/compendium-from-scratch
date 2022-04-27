@@ -6,7 +6,7 @@ export default function App() {
   return (
     <BrowserRouter>
     <Switch>
-      <Route path="/characters/:id">
+      <Route path="/character/:id">
         <Character />
       </Route>
       <Route path="/characters">

@@ -5,17 +5,13 @@ import Character from './Character';
 
 describe('Character', () => {
   it('renders a character', async () => {
-    // render(
-    //   <MemoryRouter initialEntries={['/characters/1012717']}
-    //   initialIndex={1}
-    //   >
-    //     <Routes>
-    //       <Route path='/characters/:id'>
-    //         <Character />
-    //       </Route>
-    //     </Routes>
-    //   </MemoryRouter>
-    // );
-
+    render(
+      <MemoryRouter initialEntries={['/character/1012717']}
+      initialIndex={0}
+      >
+            <Character />
+      </MemoryRouter>
+    );
+      screen.debug();
   })
 })
