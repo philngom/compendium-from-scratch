@@ -1,10 +1,10 @@
-import { Link, Route, Switch, BrowserRouter as Router } from 'react-router-dom';
+import { Link, Route, Switch, BrowserRouter } from 'react-router-dom';
 import CharactersList from './views/CharactersList/CharactersList';
 import Character from './views/Character/Character';
 
 export default function App() {
   return (
-    <Router>
+    <BrowserRouter>
     <Switch>
       <Route path="/character/:id">
         <Character />
@@ -17,6 +17,6 @@ export default function App() {
         <Link to="/characters">View Marvel Characters</Link>
       </Route>
     </Switch>
-    </Router>
+    </BrowserRouter>
   );
 }

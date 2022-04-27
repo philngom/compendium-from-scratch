@@ -28,7 +28,7 @@ export default function Character() {
 
       setCharacter(character);
       setIsLoading(false);
-      console.log("🚀 ~ file: Character.jsx ~ line 18 ~ fetchCharacter ~ data", data.data.results)
+      console.log("🚀 ~ file: Character.jsx ~ line 18 ~ fetchCharacter ~ data", data.data.results);
 
     }
     fetchCharacter();
