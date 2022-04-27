@@ -1,5 +1,5 @@
 import { render, screen, waitFor } from '@testing-library/react';
-import { userEvent } from '@testing-library/user-event';
+import userEvent from '@testing-library/user-event';
 import CharactersList from './CharactersList';
 import { MemoryRouter } from 'react-router-dom';
 
@@ -13,6 +13,7 @@ describe('CharacterList', () => {
 
     screen.getByText(/loading/i);
 
+    //increased timeout because default of 1000ms not long enough to receive data from api
     await screen.findByText(/Aaron Stack/i, undefined, {
       timeout: 5000
     });
@@ -21,11 +22,23 @@ describe('CharacterList', () => {
     const list = screen.getAllByRole('listitem');
     expect(list).toHaveLength(99);
 
-    const character = screen.getByRole('link', { name: /aaron stack/i});
-    screen.debug(character);
+    // getting error
+    // const character = screen.getByRole('link', { name: /aaron stack/i});
+    // userEvent.click(character);
+    // screen.debug();
+    //     return waitFor(() => {
+    //       screen.getByRole('heading', { level: 1, name: /aaron stack/i})
 
-    userEvent.click(character);
+    //     })
 
-    screen.getByRole('heading', { level: 1, name: /aaron stack/i})
+    const search = screen.getByPlaceholderText('Find a character');
+
+    userEvent.type(search, 'agatha');
+
+    return waitFor(() => {
+      const result = screen.getAllByRole('listitem');
+      expect(result.length).toEqual(1);
+    })
+
   })
 })

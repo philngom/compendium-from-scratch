@@ -10,6 +10,7 @@ export default function CharactersList() {
 
   const isSearching = !!search.length;
   const characterList = isSearching ? results : characters;
+  const noResults = !results.length && isSearching;
 
   useEffect(() => {
     const fetchCharacters = async () => {
@@ -75,6 +76,7 @@ export default function CharactersList() {
     </>
     )
   }
+  {noResults && <p>No results</p>}
     </>
   )
 }
